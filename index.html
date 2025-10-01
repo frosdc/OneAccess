@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>One Access</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+<body class="bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 min-h-screen pb-20" style="background-image: radial-gradient(circle, rgba(255 255 255 / 0.2) 1px, transparent 1px); background-size: 20px 20px;">
+  
+    <header class="fixed top-0 left-0 w-full bg-white/80 backdrop-blur-xl shadow-md z-50">
+      <nav>
+      <h1 class="text-4xl font-bold text-gray-800 mb-8 text-center text-yellow-500"><span class="text-4xl"><span class="text-[#1E2329] mr-3">O NE</span>[<span class="bg-[#1E2329] pl-2 pr-2 pb-2 rounded-xl">ACCESS</span>]</span></h1>
+      </nav>
+    </header>
+
+    <div id="calculationsSection" class="fixed top-25 right-4 rounded-lg shadow-2xl transition-all duration-300 ease-in-out z-50 max-w-100 bg-[#1E2329] overflow-y-auto scroll-hide flex-1 w-72 max-h-[80vh] 
+            sm:w-80 sm:max-h-[85vh] 
+            md:w-96 md:max-h-[90vh] 
+            lg:w-[400px] lg:max-h-[95vh]"
+            >
+      <div class="flex items-center justify-between p-4 border-b border-gray-200 cursor-pointer" id="summaryHeader">
+        <div class="flex items-center gap-3">
+          <i class="fas fa-calculator text-white text-xl"></i>
+          <h2 class="text-xl font-bold text-white mr-4">Calculated Numbers</h2>
+        </div>
+        <button id="toggleButton" class="text-red-600 hover:text-gray-800 transition-colors border-white">
+          <i class="fas fa-chevron-up text-lg text-white"></i>
+        </button>
+      </div>
+      <!-- calculated num -->
+      <div id="summaryContent" class="p-4 bg-white rounded-lg shadow-lg ">
+      <div class="p-4 text-white rounded-lg mt-4 bg-gray-200">
+        <div class="flex items-center justify-between">
+          <p class="text-lg font-medium text-gray-800">Total Revenue</p>
+          <p id="grandTotal" class="text-2xl font-bold text-gray-800">0</p>
+        </div>
+      </div>
+      <div class="p-3 bg-yellow-100/80 rounded-lg mt-4">        
+        <h3 class="text-lg font-bold text-gray-700">For Nurse Discussion:</h3>
+        <p id="nurseHourlyRate" class="text-neutral-500">Hourly Rate: 0</p>
+        <p id="nurseOvertimeRate" class="text-neutral-500">Overtime Rate: 0</p>
+        <p id="estWeeklyWages" class="text-neutral-500">Est. Weekly Taxable Wages: 0</p>
+        <p id="estTotalWages" class="text-neutral-500">Est. Total Wages: 0</p>
+        <p id="weeklyPayPerDiem" class="text-neutral-500">Weekly Pay + Per Diem: 0</p>
+        <p id="effectiveHourlyRate" class="text-neutral-500">Effective Hourly Rate: 0</p>
+      </div>
+
+
+      <div class="hidden">
+        <p>Form 1 Total: <span id="form1Total">0</span></p>
+        <p>Form 2 Total: <span id="form2Total">0</span></p>
+        <p>Form 3 Total: <span id="form3Total">0</span></p>
+        <p>Form 4 Total: <span id="form4Total">0</span></p>
+        <p>Form 5 Total: <span id="form5Total">0</span></p>
+        <p>Grand Total: <span id="grandTotalHidden">0</span></p>
+      </div>
+
+      <div class="p-3 rounded-lg mt-4 bg-yellow-600/20">
+        <h3 class="text-lg font-bold text-gray-700 mb-2">Overheads:</h3>
+        <p id="factoringFees" class="text-neutral-500">Factoring Fees: 0</p>
+        <p id="vendorFees" class="text-neutral-500">Vendor Fees: 0</p>
+        <p id="benefits" class="text-neutral-500">Benefits: 0</p>
+        <p id="reimbursement" class="text-neutral-500">Reimbursement: 0</p>
+        <p id="payrollTaxes" class="text-neutral-500">Employer Payroll Taxes: 0</p>
+        <p id="match401k" class="text-neutral-500">401k Match: 0</p>
+        <p id="totalOverheads" class="text-neutral-500">Total Overheads: 0</p>
+        <p id="netIncome" class="text-neutral-500 font-extrabold bg-green-300 rounded">Project Net Income: 0</p>
+        <p id="marginPercent" class="text-neutral-500">Margin %: 0</p>
+      </div>
+
+ 
+
+
+  <div class="p-4 bg-yellow-500 text-white rounded-lg mt-4">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <i class="fas fa-chart-line text-gray-800"></i>
+        <p class="text-sm text-gray-800 font-medium">Show More Data</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- calculated num -->
+    </div>
+
+
+
+    <div class="container mx-auto px-4 py-8 mt-[100px]">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+    <form id="form1" class="rounded-lg shadow-lg p-4 bg-white">
+    <h2 class="text-xl font-bold text-gray-800 mb-4">Contract Type and Vendor Info</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Contract</label>
+        <select name="contract" class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-neutral-800">
+          <option value="">Select contract...</option>
+          <option value="">Contract 1</option>
+          <option value="">Contract 2</option>
+          <option value="">Contract 3</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Vendor Name</label>
+        <input type="text" name="vendor" required placeholder="Type here..." class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-neutral-800">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Vendor Fee Percent *</label>
+        <input type="number" name="vendor_fee_percent" required placeholder="Type here..." class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-neutral-800">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Prompt Pay Discount *</label>
+        <input type="number" name="prompt_pay_discount" required placeholder="Type here..." class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-neutral-800">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Facility Name</label>
+        <input type="text" name="facility" required placeholder="Type here..." class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-neutral-800">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Facility Address</label>
+        <input type="text" name="facility_address" required placeholder="Type here..." class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-neutral-800">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">City</label>
+        <input type="text" name="city" required placeholder="Type here..." class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-neutral-800">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">State</label>
+        <input type="text" name="state" required placeholder="Type here..." class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-neutral-800">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Zip</label>
+        <input type="text" name="zip" required placeholder="Type here..." class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-neutral-800">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Annual Income</label>
+        <input type="number" name="income" required placeholder="Type here..." class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-neutral-800">
+      </div>
+    </div>
+  </form>
+
+
+  <form id="form2" class="rounded-lg shadow-lg p-4 bg-white">
+    <h2 class="text-xl font-bold text-gray-800 mb-4">Traveler Info</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Traveler Name</label>
+        <input type="text" name="traveler" required placeholder="Type here..." class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-neutral-800">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Address</label>
+        <input type="text" name="traveler_address" required placeholder="Type here..." class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-neutral-800">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">City</label>
+        <input type="text" name="traveler_city" required placeholder="Type here..." class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-neutral-800">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">State</label>
+        <input type="text" name="state" required placeholder="Type here..." class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-neutral-800">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Zip</label>
+        <input type="text" name="traveler_zip" required placeholder="Type here..." class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-neutral-800">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Profession/Unit</label>
+        <input type="text" name="profession" required placeholder="Type here..." class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-neutral-800">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
+        <input type="text" name="title" required placeholder="Type here..." class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-neutral-800">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Referred? If so, who?</label>
+        <input type="text" name="deliveryAddress" required placeholder="Type here..." class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-neutral-800">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Hourly Rate Override</label>
+        <input type="number" step="2" name="hourly_rate" required placeholder="Type here..." class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-neutral-800">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Overtime Hourly Rate Override</label>
+        <input type="number" step="2" name="overtime_hourly_rate" required placeholder="Type here..." class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent text-neutral-800">
+      </div>
+    </div>
+  </form>
+
+
+  <form id="form3" class="rounded-lg shadow-lg p-4 bg-white">
+    <h2 class="text-xl font-bold text-gray-800 mb-4">Recruiter & Assignment Info</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+        <input type="text" name="recruiter_name" required placeholder="Type here..." class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-neutral-800">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
+        <input type="date" name="start_date" required class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-neutral-800">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Type of Shift</label>
+        <select name="shift" class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-neutral-800">
+          <option value="">Select a Shift...</option>
+          <option value="">Day</option>
+          <option value="">Night</option>
+          <option value="">Both</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Days per week</label>
+        <input type="number" name="days_per_week" min="1" max="7" required placeholder="Type here..." class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-neutral-800">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Bonus</label>
+        <input type="number" name="bonus" required placeholder="Type here..." class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-neutral-800">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Creation Date</label>
+        <input type="date" name="creation_date" required class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-neutral-800">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">End Date</label>
+        <input type="date" name="end_date" required class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-neutral-800">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Non-billable Hours</label>
+        <input type="number" name="non_billable" required placeholder="Type here..." class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-neutral-800">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Hours per Shift</label>
+        <input type="number" step="2" name="hours_per_shift" required placeholder="Type here..." class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-neutral-800">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">True Margin</label>
+        <input type="number" step="2" name="true_margin" required class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-neutral-800">
+      </div>
+    </div>
+  </form>
+
+
+      <form id="form4" class="bg-white rounded-lg shadow-lg p-6">
+          <h2 class="text-xl font-bold text-gray-800 mb-4">MISC T&Cs</h2>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">RTO during contract?</label>
+              <select name="rto" id="" class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-neutral-800">
+                <option value="">Select here...</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">If yes, Input dates</label>
+              <input type="text" name="rto_dates" required class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-neutral-800">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Does RTO impact contracted hours?</label>
+              <select name="rto_contract" id="" class="text-neutral-800 w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                <option value="">Select here...</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">If yes, type number of weeks</label>
+              <input type="number" name="number_of_weeks" required class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-neutral-800">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Reimbursement $(If applicable)</label>
+              <input type="number" name="reimbursement" placeholder="Type here..." required class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-neutral-800">
+            </div>
+          
+          </div>
+        </form>
+
+    <form id="form5" class="bg-white rounded-lg shadow-lg p-4">
+      <h2 class="text-xl font-bold text-gray-800 mb-4">Facility Reimbursement & Stipend</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Bill Rate*</label>
+          <input type="number" step="2" name="bill_rate" placeholder="Type here..." required class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-neutral-800">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Pay Rate OT Multiplier*</label>
+          <input type="number" step="2" name="pay_rate" placeholder="Type here..." required class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-neutral-800">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Overtime Policy*</label>
+          <input type="text" name="overtime_policy" placeholder="Type here..." required class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-neutral-800">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Overtime Multiplier</label>
+          <input type="number" name="overtime_multiplier" placeholder="Multiplier" disabled required class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-neutral-800">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Distance from Home (miles)</label>
+          <input type="number" name="distance_from_home" placeholder="Type here..." required class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-neutral-800">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Housing Rate/Day*</label>
+          <input type="number" name="housing_rate_per_day" placeholder="Type here..." required class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-neutral-800">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Meals Rate/Day*</label>
+          <input type="number" name="meals_rate_per_day" placeholder="Type here..." required class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-neutral-800">
+        </div>
+      </div>
+    </form>
+
+
+    <form id="form6" class="bg-white rounded-lg shadow-lg p-4">
+      <h2 class="text-xl font-bold text-gray-800 mb-4">Policy & Contract Terms</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Guaranteed Hours (Facility)</label>
+          <input type="number" name="guranteed_hours_facility" placeholder="Type here..." required class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-neutral-800">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">On-Call Policy</label>
+          <input type="text" name="oncall_policy" required placeholder="Type here..." class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-neutral-800">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Shift Cancellation Policy</label>
+          <input type="text" name="shift_policy" required placeholder="Type here..." class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-neutral-800">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Hours Tracking</label>
+          <input type="text" name="hours_tracking" required placeholder="Type here..." class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-neutral-800">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Other</label>
+          <input type="text" name="policy_other" required placeholder="Type here..." class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-neutral-800">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Guaranteed Hours (Access)</label>
+          <input type="number" name="guranteed_hours_access" required placeholder="Type here..." class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-neutral-800">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">On-Call Policy (Access)</label>
+          <input type="text" name="oncall_policy_access" required placeholder="Type here..." class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-neutral-800">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Facility Work Week</label>
+          <input type="text" name="work_week" required placeholder="Type here..." class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-neutral-800">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Lunches Required</label>
+          <input type="text" name="launces" required placeholder="Type here..." class="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent text-neutral-800">
+        </div>
+      </div>
+    </form>
+
+    
+
+      </div>
+    </div>
+
+
+
+
+    <script src="javascript.js"></script>
+  </body>
+</html>

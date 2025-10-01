@@ -11,35 +11,38 @@
 
 <body class="bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 min-h-screen pb-20" style="background-image: radial-gradient(circle, rgba(255 255 255 / 0.2) 1px, transparent 1px); background-size: 20px 20px;">
   
-    <header class="fixed top-0 left-0 w-full bg-white/80 backdrop-blur-xl shadow-md z-50">
+    <header class="fixed top-0 left-0 w-full bg-black/70 backdrop-blur-xl shadow-md z-50">
       <nav>
-      <h1 class="text-4xl font-bold text-gray-800 mb-8 text-center text-yellow-500"><span class="text-4xl"><span class="text-[#1E2329] mr-3">O NE</span>[<span class="bg-[#1E2329] pl-2 pr-2 pb-2 rounded-xl">ACCESS</span>]</span></h1>
+      <h1 class="text-4xl font-bold mb-8 text-center text-yellow-500"><span class="text-4xl">
+        <span class="text-white/80 mr-3">ONE</span>[<span class="pr-2 pb-2 pl-2 rounded-xl ">ACCESS</span>]
+      </span>
+    </h1>
       </nav>
     </header>
 
-    <div id="calculationsSection" class="fixed top-25 right-4 rounded-lg shadow-2xl transition-all duration-300 ease-in-out z-50 max-w-100 bg-[#1E2329] overflow-y-auto scroll-hide flex-1 w-72 max-h-[80vh] 
+    <div id="calculationsSection" class="fixed top-25 right-4 rounded-lg shadow-2xl transition-all duration-300 ease-in-out z-50 max-w-100 bg-[#2A2F35] overflow-y-auto scroll-hide flex-1 w-72 max-h-[80vh] 
             sm:w-80 sm:max-h-[85vh] 
             md:w-96 md:max-h-[90vh] 
             lg:w-[400px] lg:max-h-[95vh]"
             >
-      <div class="flex items-center justify-between p-4 border-b border-gray-200 cursor-pointer" id="summaryHeader">
+      <div class="flex items-center justify-between p-4 border-b border-gray-200 cursor-pointer bg-black/70" id="summaryHeader">
         <div class="flex items-center gap-3">
           <i class="fas fa-calculator text-white text-xl"></i>
           <h2 class="text-xl font-bold text-white mr-4">Calculated Numbers</h2>
         </div>
-        <button id="toggleButton" class="text-red-600 hover:text-gray-800 transition-colors border-white">
+        <button id="toggleButton" class="border-none focus:outline-none bg-transparent bg-black/70">
           <i class="fas fa-chevron-up text-lg text-white"></i>
         </button>
       </div>
       <!-- calculated num -->
       <div id="summaryContent" class="p-4 bg-white rounded-lg shadow-lg ">
-      <div class="p-4 text-white rounded-lg mt-4 bg-gray-200">
+      <div class="p-4 text-white rounded-lg mt-4 bg-gray-800">
         <div class="flex items-center justify-between">
-          <p class="text-lg font-medium text-gray-800">Total Revenue</p>
-          <p id="grandTotal" class="text-2xl font-bold text-gray-800">0</p>
+          <p class="text-lg font-medium text-white/90">Total Revenue</p>
+          <p id="grandTotal" class="text-2xl font-bold ttext-white/90">0</p>
         </div>
       </div>
-      <div class="p-3 bg-yellow-100/80 rounded-lg mt-4">        
+      <div class="p-3 bg-gray-200 rounded-lg mt-4">        
         <h3 class="text-lg font-bold text-gray-700">For Nurse Discussion:</h3>
         <p id="nurseHourlyRate" class="text-neutral-500">Hourly Rate: 0</p>
         <p id="nurseOvertimeRate" class="text-neutral-500">Overtime Rate: 0</p>
@@ -59,7 +62,7 @@
         <p>Grand Total: <span id="grandTotalHidden">0</span></p>
       </div>
 
-      <div class="p-3 rounded-lg mt-4 bg-yellow-600/20">
+      <div class="p-3 rounded-lg mt-4 bg-gray-200">
         <h3 class="text-lg font-bold text-gray-700 mb-2">Overheads:</h3>
         <p id="factoringFees" class="text-neutral-500">Factoring Fees: 0</p>
         <p id="vendorFees" class="text-neutral-500">Vendor Fees: 0</p>
@@ -68,14 +71,14 @@
         <p id="payrollTaxes" class="text-neutral-500">Employer Payroll Taxes: 0</p>
         <p id="match401k" class="text-neutral-500">401k Match: 0</p>
         <p id="totalOverheads" class="text-neutral-500">Total Overheads: 0</p>
-        <p id="netIncome" class="text-neutral-500 font-extrabold bg-green-300 rounded">Project Net Income: 0</p>
+        <p id="netIncome" class="text-neutral-500 font-extrabold rounded">Project Net Income: 0</p>
         <p id="marginPercent" class="text-neutral-500">Margin %: 0</p>
       </div>
 
  
 
 
-  <div class="p-4 bg-yellow-500 text-white rounded-lg mt-4">
+  <div class="p-4 bg-[#FED255] text-white rounded-lg mt-4">
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-2">
         <i class="fas fa-chart-line text-gray-800"></i>
